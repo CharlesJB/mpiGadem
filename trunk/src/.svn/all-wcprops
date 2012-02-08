@@ -1,0 +1,269 @@
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/4727/charles/mpiGADEM/mpiGADEM/src
+END
+alloc.h
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/4727/charles/mpiGADEM/mpiGADEM/src/alloc.h
+END
+read_matrix.c
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/4727/charles/mpiGADEM/mpiGADEM/src/read_matrix.c
+END
+output.c
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/4727/charles/mpiGADEM/mpiGADEM/src/output.c
+END
+mutation.c
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/4727/charles/mpiGADEM/mpiGADEM/src/mutation.c
+END
+effect_seq_len.c
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/4727/charles/mpiGADEM/mpiGADEM/src/effect_seq_len.c
+END
+pwm_score_distr.c
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/4727/charles/mpiGADEM/mpiGADEM/src/pwm_score_distr.c
+END
+top_kmers.c
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/4727/charles/mpiGADEM/mpiGADEM/src/top_kmers.c
+END
+construct_pwm.c
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/4727/charles/mpiGADEM/mpiGADEM/src/construct_pwm.c
+END
+config.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/4727/charles/mpiGADEM/mpiGADEM/src/config.h
+END
+weights.c
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/4727/charles/mpiGADEM/mpiGADEM/src/weights.c
+END
+score_subsequence.c
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/4727/charles/mpiGADEM/mpiGADEM/src/score_subsequence.c
+END
+read_pwm0.c
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/4727/charles/mpiGADEM/mpiGADEM/src/read_pwm0.c
+END
+background.c
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/4727/charles/mpiGADEM/mpiGADEM/src/background.c
+END
+Gadem_Analysis.c
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/4727/charles/mpiGADEM/mpiGADEM/src/Gadem_Analysis.c
+END
+consensus.c
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/4727/charles/mpiGADEM/mpiGADEM/src/consensus.c
+END
+gadem.h
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/4727/charles/mpiGADEM/mpiGADEM/src/gadem.h
+END
+defines.h
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/4727/charles/mpiGADEM/mpiGADEM/src/defines.h
+END
+reverse_seq.c
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/4727/charles/mpiGADEM/mpiGADEM/src/reverse_seq.c
+END
+crossover.c
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/4727/charles/mpiGADEM/mpiGADEM/src/crossover.c
+END
+check_convergence.c
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/4727/charles/mpiGADEM/mpiGADEM/src/check_convergence.c
+END
+scan_sites.c
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/4727/charles/mpiGADEM/mpiGADEM/src/scan_sites.c
+END
+Makevars.in
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/4727/charles/mpiGADEM/mpiGADEM/src/Makevars.in
+END
+copy_pwm.c
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/4727/charles/mpiGADEM/mpiGADEM/src/copy_pwm.c
+END
+transform_pwm.c
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/4727/charles/mpiGADEM/mpiGADEM/src/transform_pwm.c
+END
+align_sites.c
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/4727/charles/mpiGADEM/mpiGADEM/src/align_sites.c
+END
+mask_sites.c
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/4727/charles/mpiGADEM/mpiGADEM/src/mask_sites.c
+END
+initial_population.c
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/4727/charles/mpiGADEM/mpiGADEM/src/initial_population.c
+END
+sample_wo_replacement.c
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/4727/charles/mpiGADEM/mpiGADEM/src/sample_wo_replacement.c
+END
+populationCalculation.c
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/4727/charles/mpiGADEM/mpiGADEM/src/populationCalculation.c
+END
+mpiFunctions.c
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/4727/charles/mpiGADEM/mpiGADEM/src/mpiFunctions.c
+END
+config.h.in
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/4727/charles/mpiGADEM/mpiGADEM/src/config.h.in
+END
+check_pwm_dist.c
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/4727/charles/mpiGADEM/mpiGADEM/src/check_pwm_dist.c
+END
+read_seq.c
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/4727/charles/mpiGADEM/mpiGADEM/src/read_seq.c
+END
+evalue_meme.c
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/4727/charles/mpiGADEM/mpiGADEM/src/evalue_meme.c
+END
+random.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/4727/charles/mpiGADEM/mpiGADEM/src/random.h
+END
+extend_alignment.c
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/4727/charles/mpiGADEM/mpiGADEM/src/extend_alignment.c
+END
+selection.c
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/4727/charles/mpiGADEM/mpiGADEM/src/selection.c
+END
+normalization.c
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/4727/charles/mpiGADEM/mpiGADEM/src/normalization.c
+END
+sort.c
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/4727/charles/mpiGADEM/mpiGADEM/src/sort.c
+END
+Makevars
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/4727/charles/mpiGADEM/mpiGADEM/src/Makevars
+END
+evalue_meme.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/4727/charles/mpiGADEM/mpiGADEM/src/evalue_meme.h
+END
+Makevars.win.in
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/4727/charles/mpiGADEM/mpiGADEM/src/Makevars.win.in
+END
+alloc.c
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/4727/charles/mpiGADEM/mpiGADEM/src/alloc.c
+END
+base_frequency.c
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/4727/charles/mpiGADEM/mpiGADEM/src/base_frequency.c
+END

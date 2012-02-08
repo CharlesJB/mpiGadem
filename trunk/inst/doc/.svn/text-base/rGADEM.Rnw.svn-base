@@ -1,0 +1,188 @@
+%\VignetteIndexEntry{The rGADEM users guide}
+%\VignetteKeywords{Preprocessing, MOTIF, ChIP-chip,ChIP-Seq}
+%\VignettePackage{rGADEM}
+\documentclass[11pt]{article}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{color, pdfcolmk}
+\usepackage[authoryear,round]{natbib}
+\bibliographystyle{plainnat}
+
+\newcommand{\scscst}{\scriptscriptstyle}
+\newcommand{\scst}{\scriptstyle}
+
+\author{Arnaud Droit \footnote{arnaud.droit@ircm.qc.ca} and Raphael Gottardo \footnote{raphael.gottardo@ircm.qc.ca}}
+
+\begin{document}
+\title{Discovering and analyzing DNA sequence motifs\\ The rGADEM package.}
+\maketitle
+
+\textnormal {\normalfont}
+A step-by-step guide in the analysis of DNA sequence motifs using the rGADEM package in R	
+
+\tableofcontents
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+
+\part{Licensing}
+
+rGADEM is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version. We ask you to cite the following paper if you use this software 
+for publication. 
+\begin{itemize}
+\item[]L. Leiping. GADEM: A Genetic Algorithm Guided Formation of Spaced Dyads Coupled with an EM Algorithm for Motif Discovery. J Comput Biology\end{itemize}
+
+\part{Introduction}
+	In our guide, we include examples of code that we hope will help you when using the rGADEM package. The examples are kept at the basic level for ease of understanding. Some of the options in the functions have been set by default. To learn more about the exact parameters and usage of each function, you may type \verb@help(FUNCTION_NAME)@ of the function of interest in R after the rGADEM package is loaded.
+\newline
+Genome-wide analyses of protein binding sites generate large amounts of data; a ChIP data-set might contain 10,000 sites. Unbiased motif discovery in such datasets is not generally feasible using current methods that employ probabilistic models. We propose an efficient method, rGADEM, which combines spaced dyads and an expectation-maximization (EM) algorithm. Candidate words (four to six nucleotides) for constructing spaced dyads are prioritized by their degree of overrepresentation in the input sequence data. Spaced dyads are converted into starting position weight matrices (PWMs). rGADEM then employs a genetic algorithm (GA), with an embedded EM algorithm to improve starting PWMs, to guide the evolution of a population of spaced dyads toward one whose entropy scores are more statistically significant. Spaced dyads whose entropy scores reach a pre-specified significance threshold are declared motifs. 
+\newline
+To use rGADEM, the user provide a set of coordinate include in the BED file or set of sequences in the FASTA format. The BED file contains location on chromosome, start and end position on the chromosome. For each line on the BED file, we convert coordinate on a FASTA sequence. rGADEM has been developed in order to facilitate the discover and analysis of transcriptor factors and it is designed to works with the identification of motif package : MotIV. Thus, you can use the object returns by the rGADEM package to use MotIV (see MotIV package in Bioconductor for more detail).
+\newline
+
+The C code in rGADEM makes use of Grand Central Dispatch on Mac OS X 10.6 (Apple Inc) and openMP (openMP.org), with no user configuration, which greatly facilitates parallel processing and improve computing time on multicore machines (i.e. most modern computers). This implementation can actually reduce the computing time by a factor of 10, from several hours to a few minutes (depending on the number of input sequences).
+
+\part{Step-by-step Guide}
+
+\section{rGADEM package and Packages}
+To load the rGADEM package, you should use this commande :
+<<loading rGADEM package>>=
+library(rGADEM)
+@
+In the case of your data provide from Homo Sapiens : 
+
+<<loading BSgenome package>>=
+library(BSgenome.Hsapiens.UCSC.hg18)
+@
+
+\section{Loading in the data}
+The next step is to load data from BED files or FASTA format in the R environment. 
+The sequences are stored in some of the basic containers defined in the \verb@Biostrings@ package (see Biostring's document for more information). So ,the data can be manipulated in a consistent and easy way. \newline The maximum number of sequences allowed is 44 000. But it is possible to change the default parameters by editing the defines.h file and recompiling it.\newline 
+The data used in this example are available in : extdata folder.  The path for the data are :  /rGADEM/inst/extdata. \newline
+
+\subsection{From a BED file}
+Each line on the BED file contain the location, start and end position on the chromosome. 
+
+<<BED File>>=
+pwd<-"" #INPUT FILES- BedFiles, FASTA, etc.
+path<- system.file("extdata/Test_100.bed",package="rGADEM")
+BedFile<-paste(pwd,path,sep="")
+BED<-read.table(BedFile,header=FALSE,sep="\t")
+BED<-data.frame(chr=as.factor(BED[,1]),start=as.numeric(BED[,2]),end=as.numeric(BED[,3]))
+@
+
+Once the data have been read, we can create the list of `RangedData' object (from \verb@IRanges@ package) where each element of the list corresponds to a different chromosome. 
+
+<<Create the RD Files>>=
+rgBED<-IRanges(start=BED[,2],end=BED[,3])
+Sequences<-RangedData(rgBED,space=BED[,1])
+@
+
+\subsection{From a FASTA file}
+In the case you have a FASTA file, you can load the data as follow : 
+<<Create the RD Files,eval=FALSE>>=
+
+pwd<-"" #INPUT FILES- BedFiles, FASTA, etc.
+path<- system.file("extdata/Test_100.fasta",package="rGADEM")
+FastaFile<-paste(pwd,path,sep="")
+Sequences <- read.DNAStringSet(FastaFile, "fasta")
+@
+
+
+\section{rGADEM analysis}
+At this time, we are now ready to start rGADEM analysis. If you want more details about rGADEM parameters, you may type \verb@help(gadem)@  in R environment.
+In this example, we have defined two parameters for rGADEM : 
+\begin{itemize}
+\item{verbose =1 : Print immediate results on screen.} 
+\item{genome = Hsapiens : specify the genome.} \newline \newline
+We also describe two important parameters : 
+\item{P-Value cutoff: The P-Value cutoff controls the number of binding site in a motif. By default, the P-value cutoff is : 0.0002}  
+\item{E-Value cutoff: The E-Value cutoff controls the number of motifs to be identified. By default, the E-value cutoff is : 0.0}
+\end{itemize}
+
+<<rGADEM analysis>>=
+gadem<-GADEM(Sequences,verbose=1,genome=Hsapiens)
+@
+
+\section{Seeded analysis}
+In a seeded analysis rGADEM does not generate the starting PWMs through spaced dyads and optimize them through a Genetic Algorithm. This makes seeded runs much faster than unseeded. The efficiency of seeded runs makes it practical, even for sequence sets consisting of thousands of ChIP-Seq peak cores, to assess several alternative seed PWMs when prior knowledge suggests that this may be advisable (for example, when several database motifs are plausible candidate seeds). \newline
+
+The main advantage of a seeded analysis over an unseeded analysis is its computational efficiency.We recommend a seeded analysis whenever a reasonable starting PWM is available. However, for \verb@de novo@ motif discovery , an unseeded analysis is necessary.\newline
+
+First step is to prepare a text file with your PWM. It could be a general database (JASPAR, Transfac$^{\copyright}$,...). Only STAT1 have been selected in our example but it is possible to select a list of PWMs. \newline
+
+<<prepare PWM,eval=FALSE>>=
+path<- system.file("extdata/jaspar2009.txt",package="rGADEM")
+seededPwm<-readPWMfile(path)
+grep("STAT1",names(seededPwm))
+STAT1.PWM=seededPwm[103]
+@
+
+At this step, we have two choice : \newline
+
+Only seeded analysis : 
+<<rGADEM seeded analysis,eval=FALSE>>=
+gadem<-GADEM(Sequences,verbose=1,genome=Hsapiens,Spwm=STAT1.PWM, fixSeeded=TRUE)
+@
+
+or seeded analysis following by unseeded analysis :
+ 
+<<rGADEM seeded analysis,eval=FALSE>>=
+gadem<-GADEM(Sequences,verbose=1,genome=Hsapiens,Spwm=STAT1.PWM)
+@
+
+
+\section{rGADEM output}
+At the end of analysis, gadem object have been created in your R current session. This object contain all of your data information about your analysis (sequence consensus, pwm, chromosome, pvalue...). In fact, gadem object is a list of object. \newline
+\begin{itemize}
+\item{align : This object contains the individual motifs identified but and the location (seqID and position) of the sites in the original sequence data.}
+\item{motif : This object contains contains PWM, motif consensus, motif length and all aligned sequences for a specific motif.}
+\item{parameters : This object contains contains parameters of rGADEM analysis.}
+\end{itemize}
+For more details, please see the RD files for each object.\newline
+
+
+\subsection{Acces to pwm}
+To view all PWM  \newline
+<<pwm>>=
+nOccurrences(gadem)
+@
+To view pwm for the motif 1 : \newline
+<<pwm>>=
+nOccurrences(gadem)[1]
+@
+\subsection{Acces to sequence consensus}
+To view all sequences consensus : \newline
+<<consensus>>=
+consensus(gadem)
+@
+
+\subsection{Acces to sequence consensus}
+To access to the first sequence : \newline
+<<consensus>>=
+consensus(gadem)[1]
+@
+
+\subsection{Acces to chromosome position}
+To view start position on chromosome  : \newline
+<<position>>=
+startPos(gadem)
+@
+
+\subsection{Acces to chromosome position}
+To view end position on chromosome  : \newline
+<<position>>=
+endPos(gadem)
+@
+
+\subsection{Acces to parameters}
+And finaly, if you want to show parameters for this analysis : \newline
+<<parameters,eval=FALSE>>=
+gadem@parameters
+@
+
+\end{document}
+
+
+
+
+
