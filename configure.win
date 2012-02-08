@@ -1,0 +1,37 @@
+# Configure script on Windows platforms
+# The script is quite simple and does only
+# the minimal work to create a useable config.h
+# and Makevars.win, with no effort to deduce
+# any configuration options. Disabling OpenMP
+# parallelization can only be done by editing
+# the value of 'use_omp' variable in this script.
+
+echo "  configure.win..."
+
+# Change to 'no' to disable using OpenMP
+use_omp=no
+
+if [ "${use_omp}" = "yes" ]; then
+  OMP_CFLAGS="-fopenmp"
+  OMP_LIBS="-lgomp"
+  DEFINE_HAVE_OPENMP='#define HAVE_OPENMP 1'
+else
+  OMP_CFLAGS=""
+  OMP_LIBS=""
+  DEFINE_HAVE_OPENMP='/* #undef HAVE_OPENMP */'
+fi
+
+### Create config.h from the config.h.in template
+###  - define HAVE_OPENMP if 'use_omp'
+###  - comment out all undefs
+sed \
+-e "s%^#undef HAVE_OPENMP%${DEFINE_HAVE_OPENMP}%" \
+-e "s%^\\(#undef .*\\)%/\\* \\1 \\*/%" \
+src/config.h.in > src/config.h
+
+### Create Makevars.win from the Makevars.win.in template
+###  - replace @VAR@ placeholders with the value of VAR
+sed \
+-e "s^@OMP_CFLAGS@^${OMP_CFLAGS}^" \
+-e "s^@OMP_LIBS@^${OMP_LIBS}^" \
+src/Makevars.win.in > src/Makevars.win

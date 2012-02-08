@@ -1,0 +1,16 @@
+Package: rGADEM
+Type: Package
+Title: de novo motif discovery
+Version: 1.6.0
+Date: 2010-02-01
+Author: Arnaud Droit, Raphael Gottardo, Gordon Robertson and Leiping Li
+Maintainer: Arnaud Droit <arnaud.droit@ircm.qc.ca>
+Depends: R (>= 2.11.0), Biostrings, IRanges, BSgenome, methods, seqLogo
+Imports: Biostrings, IRanges, methods, graphics, seqLogo
+Suggests: BSgenome.Hsapiens.UCSC.hg18
+Description: rGADEM is an efficient de novo motif discovery tool for
+             large-scale genomic sequence data. It is an open-source R
+	     package, which is based on the GADEM software. 
+License: Artistic-2.0
+biocViews: Microarray, ChIPchip, Sequencing, ChIPSeq, GenomicSequence
+Packaged: 2011-04-14 17:22:07 UTC; biocbuild
